@@ -18,17 +18,49 @@
 
   <body>
 
-    <canvas id="canvasOne" width="500" height="250 "></canvas>
+    <canvas id="canvasOne" width="500" height="250"></canvas>
 
     <script type="text/javascript">
-        var canvas = document.getElementById('canvasOne');
+      //Created variable 'canvas' to get the element by it's ID.
 
+    var canvas = document.getElementById('canvasOne');
 		const ctx = canvas.getContext("2d");
         
-		ctx.fillStyle =  "rgb(255, 0, 0)";
+		    ctx.fillStyle =  "rgb(255, 0, 0)";
         ctx.font = "30px Arial";
-        ctx.fillText("Bogdan", 10, 50);
+        ctx.fillText("OKE", 10, 50);
+
+        //Set the fill colour to bright red
+      ctx.fillStyle = "#90ee90"; // orange
+      ctx.fillRect(50, 50, 300, 150);  // rectangle instead of square
+
+  
+        // //Circles
+        // ctx.beginPath();
+        // ctx.fillStyle =  "rgb(255, 0, 0)";
+        // ctx.arc(95, 150, 40, 0, 2 * Math.PI);
+        // ctx.strokeStyle = "blue";
+        // ctx.stroke();
+
+        //  ctx.beginPath();
+        // ctx.arc(300, 100, 40, 0, 2 * Math.PI);
+        // ctx.stroke();
+
+        // ctx.beginPath();
+        // ctx.moveTo(100,20);
+        // ctx.lineTo(180,100);
+        // ctx.lineTo(20,100);
+        // ctx.lineTo(100,20);
+        // ctx.stroke();
+
+        // ctx.strokeStyle = "red";
+        // ctx.stroke();
+        // //Fill Function
+        ctx.fill();
+
+
     
+
     </script>
 
   </body>
