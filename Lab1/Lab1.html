@@ -9,7 +9,7 @@
     <style type="text/css">
 	
    canvas {
-    border: 3px solid black;
+    border: 8px solid black;
 } 
 
     </style>
@@ -31,24 +31,52 @@
 
   // Set the fill colour to light green rectangle
   ctx.fillStyle = "#90ee90";
-  ctx.fillRect(50, 50, 200, 125); 
+  ctx.fillRect(50, 50, 200, 125);
 
-   // Draw a triangle (red with 40% opacity), overlapping the rectangle
+  ctx.lineWidth = 5;
+  ctx.strokeStyle = "purple";
+  ctx.strokeRect(50, 50, 200, 125); // use strokeRect for a rectangle border
+  
+  
+  
+
+  // Draw a triangle (red with 40% opacity), overlapping the rectangle
   ctx.beginPath();
-  ctx.moveTo(150, 30);
+  ctx.moveTo(150, 70);
   ctx.lineTo(300, 150);
   ctx.lineTo(50, 150);
   ctx.closePath();
+  ctx.lineWidth = 5;
+  ctx.strokeStyle = "green";
   ctx.fillStyle = "rgba(255, 0, 0, 0.4)";
   ctx.fill()
-
-  // Draw a circlee
-  ctx.beginPath();
-  ctx.arc(95, 50, 40, 0, 2 * Math.PI);
-
-   ctx.beginPath();
-  ctx.arc(95, 50, 40, 0, 2 * Math.PI);
   ctx.stroke();
+
+  // First Circle
+ctx.beginPath();
+ctx.arc(150, 50, 40, 0, 2 * Math.PI);
+ctx.lineWidth = 8; //the width of the stroke
+ctx.strokeStyle = "blue";
+ctx.fillStyle = "purple";
+ctx.fill(); 
+ctx.stroke(); //closed functions
+
+// Second Circle
+ctx.beginPath();
+ctx.arc(250, 150, 80, 0, 2 * Math.PI);
+ctx.lineWidth = 6;
+ctx.strokeStyle = "black";
+ctx.fillStyle = "yellow";
+ctx.fill();
+ctx.stroke();
+
+//Square
+ctx.beginPath();
+ctx.rect(400, 50, 200, 200);
+ctx.fillStyle = "lightblue";
+
+
+  
 </script>
 
   </body>
