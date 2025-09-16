@@ -21,18 +21,28 @@
     <canvas id="canvasOne" width="500" height="250"></canvas>
 
     <script type="text/javascript">
-      //Created variable 'canvas' to get the element by it's ID.
 
+      //Created variable 'canvas' to get the element by it's ID.
     var canvas = document.getElementById('canvasOne');
 		const ctx = canvas.getContext("2d");
         
+      //Adding the name to the canvas with Arial font.
 		    ctx.fillStyle =  "rgb(255, 0, 0)";
         ctx.font = "30px Arial";
         ctx.fillText("OKE", 10, 50);
 
-        //Set the fill colour to bright red
-      ctx.fillStyle = "#90ee90"; // orange
-      ctx.fillRect(50, 50, 300, 150);  // rectangle instead of square
+      //Set the fill colour to light green.
+      ctx.fillStyle = "#90ee90";
+      ctx.fillRect(50, 50, 200, 125); 
+
+      //Drawing a triangle of a different colour.
+     ctx.fillStyle = "rgb(255, 0, 0)";
+     ctx.globalAlpha = 0.2;
+      ctx.moveTo(20,20);
+      ctx.lineTo(180,20);
+      ctx.lineTo(180,100);
+      ctx.lineTo(20,100);
+      ctx.lineTo(20,20);
 
   
         // //Circles
