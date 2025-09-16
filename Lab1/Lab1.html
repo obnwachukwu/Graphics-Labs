@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 
-<html lang="en">
+<html>
 
   <head>
     <meta charset="UTF-8">
@@ -8,11 +8,8 @@
 
     <style type="text/css">
 	
-   #canvas {
-
-    height: 100px;
-    width: 100px;
-    border: 1px solid blue;
+   canvas {
+    border: 3px solid black;
 } 
 
     </style>
@@ -21,19 +18,17 @@
 
   <body>
 
-    <canvas id="canvasOne"></canvas>
+    <canvas id="canvasOne" width="500" height="250 "></canvas>
 
     <script type="text/javascript">
-		// Gets a handle to the element with id canvasOne.
-		
-		// Set the canvas up for drawing in 2D.
-		
-		// Set the fill colour to bright red.
-		
-		// Create a filled rectangle 
-		
-	  
-		
+        var canvas = document.getElementById('canvasOne');
+
+		const ctx = canvas.getContext("2d");
+        
+		ctx.fillStyle =  "rgb(255, 0, 0)";
+        ctx.font = "30px Arial";
+        ctx.fillText("Bogdan", 10, 50);
+    
     </script>
 
   </body>
