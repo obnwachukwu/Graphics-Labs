@@ -1,84 +1,99 @@
 <!DOCTYPE html>
-
 <html>
+<head>
+  <meta charset="UTF-8">
+  <title>Canvas</title>
+  <style>
+    canvas {
+      border: 6px solid black;
+    } 
+  </style>
+</head>
+<body>
+  <canvas id="canvasOne" width="1000" height="650"></canvas>
+  <script>
+    var canvas = document.getElementById('canvasOne');
+    const ctx = canvas.getContext("2d");
 
-  <head>
-    <meta charset="UTF-8">
-    <title>Canvas</title>
+    // Name (moved to bottom center)
+    ctx.fillStyle = "rgb(255, 130, 120)";
+    ctx.font = "30px Arial";
+    ctx.fillText("BOGDAN", 450, 600);
 
-    <style type="text/css">
-	
-   canvas {
-    border: 8px solid black;
-} 
+    // Green rectangle with purple border (top left)
+    ctx.fillStyle = "#90ee90";
+    ctx.fillRect(50, 50, 200, 125);
+    ctx.lineWidth = 5;
+    ctx.strokeStyle = "purple";
+    ctx.strokeRect(50, 50, 200, 125);
 
-    </style>
+    // Triangle (spread below rectangle, partially overlapping rectangle for transparency)
+    ctx.beginPath();
+    ctx.moveTo(150, 150);  // moved up so it overlaps with rectangle
+    ctx.lineTo(300, 280);
+    ctx.lineTo(50, 280);
+    ctx.closePath();
+    ctx.lineWidth = 5;
+    ctx.strokeStyle = "green";
+    ctx.fillStyle = "rgba(255, 0, 0, 0.4)"; // transparent red
+    ctx.fill();
+    ctx.stroke();
 
-  </head>
+    // First circle (moved top center, overlapping triangle)
+    ctx.beginPath();
+    ctx.arc(200, 150, 60, 0, 2 * Math.PI);
+    ctx.lineWidth = 8;
+    ctx.strokeStyle = "blue";
+    ctx.fillStyle = "rgba(128, 0, 128, 0.5)"; // transparent purple
+    ctx.fill();
+    ctx.stroke();
 
-  <body>
+    // Second circle (spread right side, overlapping square)
+    ctx.beginPath();
+    ctx.arc(550, 300, 120, 0, 2 * Math.PI);
+    ctx.lineWidth = 6;
+    ctx.strokeStyle = "black";
+    ctx.fillStyle = "rgba(255, 255, 0, 0.4)"; // transparent yellow
+    ctx.fill();
+    ctx.stroke();
 
-    <canvas id="canvasOne" width="700" height="350"></canvas>
+    // Square (centered in canvas)
+    ctx.beginPath();
+    ctx.rect(400, 250, 200, 200);
+    ctx.fillStyle = "lightblue";
+    ctx.fill();
+    ctx.stroke();
 
-    <script>
-  var canvas = document.getElementById('canvasOne');
-  const ctx = canvas.getContext("2d");
+    // Triangle inside the square (each corner touches an edge)
+    ctx.beginPath();
+    ctx.moveTo(500, 250);   // top center
+    ctx.lineTo(600, 450);   // bottom right
+    ctx.lineTo(400, 450);   // bottom left
+    ctx.closePath();
+    ctx.fillStyle = "rgba(255, 165, 0, 0.5)"; // transparent orange
+    ctx.fill();
+    ctx.lineWidth = 3;
+    ctx.strokeStyle = "red";
+    ctx.stroke();
 
-  // Adding the name to the canvas with Arial font
-  ctx.fillStyle = "rgb(255, 0, 0)";
-  ctx.font = "30px Arial";
-  ctx.fillText("OKE", 10, 50);
+    // Pac-Man (bottom left, rotated upwards)
+    const x = 200;      // center x
+    const y = 500;      // center y
+    const r = 60;       // radius
+    const mouthAngle = Math.PI / 4; // how wide the mouth is
 
-  // Set the fill colour to light green rectangle
-  ctx.fillStyle = "#90ee90";
-  ctx.fillRect(50, 50, 200, 125);
+    // Draw Pac-Man facing upwards
+    ctx.beginPath();
+    ctx.moveTo(x, y); // move to center
+    ctx.arc(x, y, r, -Math.PI/2 + mouthAngle, -Math.PI/2 - mouthAngle, false);
+    ctx.closePath();
 
-  ctx.lineWidth = 5;
-  ctx.strokeStyle = "purple";
-  ctx.strokeRect(50, 50, 200, 125); // use strokeRect for a rectangle border
-  
-  
-  
-
-  // Draw a triangle (red with 40% opacity), overlapping the rectangle
-  ctx.beginPath();
-  ctx.moveTo(150, 70);
-  ctx.lineTo(300, 150);
-  ctx.lineTo(50, 150);
-  ctx.closePath();
-  ctx.lineWidth = 5;
-  ctx.strokeStyle = "green";
-  ctx.fillStyle = "rgba(255, 0, 0, 0.4)";
-  ctx.fill()
-  ctx.stroke();
-
-  // First Circle
-ctx.beginPath();
-ctx.arc(150, 50, 40, 0, 2 * Math.PI);
-ctx.lineWidth = 8; //the width of the stroke
-ctx.strokeStyle = "blue";
-ctx.fillStyle = "purple";
-ctx.fill(); 
-ctx.stroke(); //closed functions
-
-// Second Circle
-ctx.beginPath();
-ctx.arc(250, 150, 80, 0, 2 * Math.PI);
-ctx.lineWidth = 6;
-ctx.strokeStyle = "black";
-ctx.fillStyle = "yellow";
-ctx.fill();
-ctx.stroke();
-
-//Square
-ctx.beginPath();
-ctx.rect(400, 50, 200, 200);
-ctx.fillStyle = "lightblue";
-
-
-  
-</script>
-
-  </body>
-
+    // fill and stroke
+    ctx.fillStyle = 'yellow';
+    ctx.fill();
+    ctx.lineWidth = 4;
+    ctx.strokeStyle = 'black';
+    ctx.stroke();
+  </script>
+</body>
 </html>
