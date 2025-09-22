@@ -10,6 +10,7 @@
   </style>
 </head>
 <body>
+  <!--The size of the canvas-->
   <canvas id="canvasOne" width="1000" height="650"></canvas>
   <script>
     var canvas = document.getElementById('canvasOne');
@@ -50,9 +51,9 @@
 
     // Second circle
     ctx.beginPath();
-    ctx.arc(550, 300, 120, 0, 2 * Math.PI);
+    ctx.arc(750, 300, 120, 0, 2 * Math.PI);
     ctx.lineWidth = 6;
-    ctx.strokeStyle = "black";
+    ctx.strokeStyle = "#7fffd4";
     ctx.fillStyle = "rgba(255, 255, 0, 0.4)"; // transparent yellow
     ctx.fill();
     ctx.stroke();
@@ -60,6 +61,7 @@
     // Square 
     ctx.beginPath();
     ctx.rect(400, 250, 200, 200);
+    ctx.strokeStyle = "#fe6f5e";
     ctx.fillStyle = "lightblue";
     ctx.fill();
     ctx.stroke();
@@ -73,7 +75,7 @@
     ctx.fillStyle = "rgba(255, 165, 0, 0.5)"; // transparent orange
     ctx.fill();
     ctx.lineWidth = 3;
-    ctx.strokeStyle = "red";
+    ctx.strokeStyle = "#5f9ea0";
     ctx.stroke();
 
     // Pac-Man (bottom left, rotated upwards)
