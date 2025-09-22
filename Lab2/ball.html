@@ -27,8 +27,13 @@
       
       // The vertical location of the ball.
       var y = 10;
+      var ySpeed = 1;
+      var radius = 7;
+      
+    
       // A function to repeat every time the animation loops.
       function repeatme() {
+        ctx.clearRect(0,0, width, height);
         // Draw the ball (stroked, not filled).
         ctx.beginPath();
         ctx.arc(50, y, 3, 0, 2 * Math.PI);
