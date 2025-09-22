@@ -12,6 +12,7 @@
           background-color:lightcoral;
           border: 3px solid black;
       }
+      
     </style>
   </head>
   <h1>BOGDAN NWACHKWU</h1>
@@ -33,14 +34,19 @@
     
       // A function to repeat every time the animation loops.
       function repeatme() {
-        ctx.clearRect(0,0, width, height);
+        ctx.clearRect(0,0, canvas.width, canvas.height);
         // Draw the ball (stroked, not filled).
         ctx.beginPath();
-        ctx.arc(50, y, 3, 0, 2 * Math.PI);
+        ctx.arc(50, y, radius, 0, 2 * Math.PI);
         ctx.stroke();
         
         // Update the y location.
-        y += 1;
+        y += ySpeed;
+
+        if(y + radius >= canvas.height){
+            y = canvas.height - radius;
+            ySpeed = 0;
+        }
         
         window.requestAnimationFrame(repeatme);
       }
