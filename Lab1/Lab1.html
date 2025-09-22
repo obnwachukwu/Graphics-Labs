@@ -20,14 +20,14 @@
     ctx.font = "30px Arial";
     ctx.fillText("BOGDAN", 450, 600);
 
-    // Green rectangle with purple border (top left)
+    // Green rectangle with purple border
     ctx.fillStyle = "#90ee90";
     ctx.fillRect(50, 50, 200, 125);
     ctx.lineWidth = 5;
     ctx.strokeStyle = "purple";
     ctx.strokeRect(50, 50, 200, 125);
 
-    // Triangle (spread below rectangle, partially overlapping rectangle for transparency)
+    // Triangle (partially overlapping rectangle for transparency)
     ctx.beginPath();
     ctx.moveTo(150, 150);  // moved up so it overlaps with rectangle
     ctx.lineTo(300, 280);
@@ -48,7 +48,7 @@
     ctx.fill();
     ctx.stroke();
 
-    // Second circle (spread right side, overlapping square)
+    // Second circle
     ctx.beginPath();
     ctx.arc(550, 300, 120, 0, 2 * Math.PI);
     ctx.lineWidth = 6;
@@ -57,7 +57,7 @@
     ctx.fill();
     ctx.stroke();
 
-    // Square (centered in canvas)
+    // Square 
     ctx.beginPath();
     ctx.rect(400, 250, 200, 200);
     ctx.fillStyle = "lightblue";
