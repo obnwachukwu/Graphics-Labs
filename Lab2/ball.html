@@ -8,7 +8,7 @@
     <title>Canvas</title>
 
     <style type="text/css">
-      body {
+      canvas {
           background-color: lightcoral;
           border: 3px solid black;
       }
@@ -18,7 +18,7 @@
 
   <body>
 
-    <canvas id="canvas-for-ball" width="1000" height="300"></canvas>
+    <canvas id="canvas-for-ball" width="300" height="300"></canvas>
 
     <script type="text/javascript">
       // Gets a handle to the element with id canvasOne.
@@ -36,7 +36,7 @@
         // Draw the ball (stroked, not filled).
         ctx.clearRect(0,0, canvas.width, canvas.height);
         ctx.beginPath();
-        ctx.arc(500, y, 30, 0, 2 * Math.PI);
+        ctx.arc(150, y, 30, 0, 2 * Math.PI);
         ctx.stroke();
         
         // Update the y location.
@@ -44,9 +44,13 @@
 
         if(y + radius >= canvas.height){
             y = canvas.height - radius;
-            ySpeed = 0;
+            ySpeed = ySpeed * -1;
         }
         
+        if(y >= 300 + radius){
+            ySpeed = ySpeed * -1;
+        }
+
         window.requestAnimationFrame(repeatme);
       }
       
