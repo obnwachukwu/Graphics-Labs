@@ -30,16 +30,22 @@
       var y = 10;
       var ySpeed = 1;
       var radius = 7;
+
       // A function to repeat every time the animation loops.
       function repeatme() {
         // Draw the ball (stroked, not filled).
-        ctx.clearrect(0,0, canvas.width, canvas.height);
+        ctx.clearRect(0,0, canvas.width, canvas.height);
         ctx.beginPath();
         ctx.arc(500, y, 30, 0, 2 * Math.PI);
         ctx.stroke();
         
         // Update the y location.
-        y += 1;
+        y += ySpeed;
+
+        if(y + radius >= canvas.height){
+            y = canvas.height - radius;
+            ySpeed = 0;
+        }
         
         window.requestAnimationFrame(repeatme);
       }
