@@ -9,16 +9,15 @@
 
     <style type="text/css">
       body {
-          background-color:lightcoral;
-          border: 3px solid black;
+          background-color: white;
       }
-      
     </style>
+
   </head>
-  <h1>BOGDAN NWACHKWU</h1>
+
   <body>
 
-    <canvas id="canvas-for-ball" width="1000" height="300"></canvas>
+    <canvas id="canvas-for-ball"></canvas>
 
     <script type="text/javascript">
       // Gets a handle to the element with id canvasOne.
@@ -27,26 +26,16 @@
       var ctx = canvas.getContext("2d");
       
       // The vertical location of the ball.
-      var y = 11;
-      var ySpeed = 1;
-      var radius = 7;
-      
-    
+      var y = 10;
       // A function to repeat every time the animation loops.
       function repeatme() {
-        ctx.clearRect(0,0, canvas.width, canvas.height);
         // Draw the ball (stroked, not filled).
         ctx.beginPath();
-        ctx.arc(50, y, radius, 0, 2 * Math.PI);
+        ctx.arc(50, y, 3, 0, 2 * Math.PI);
         ctx.stroke();
         
         // Update the y location.
-        y += ySpeed;
-
-        if(y + radius >= canvas.height){
-            y = canvas.height - radius;
-            ySpeed = 0;
-        }
+        y += 1;
         
         window.requestAnimationFrame(repeatme);
       }
