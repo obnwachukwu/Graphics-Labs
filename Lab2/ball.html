@@ -33,8 +33,9 @@
       // A function to repeat every time the animation loops.
       function repeatme() {
         // Draw the ball (stroked, not filled).
+        ctx.clearrect(0,0, canvas.width, canvas.height);
         ctx.beginPath();
-        ctx.arc(50, y, 3, 0, 2 * Math.PI);
+        ctx.arc(500, y, 30, 0, 2 * Math.PI);
         ctx.stroke();
         
         // Update the y location.
