@@ -27,29 +27,33 @@
       var ctx = canvas.getContext("2d");
       
       // The vertical location of the ball.
-      var y = 10;
-      var ySpeed = 1;
-      var radius = 7;
+      var y = 50;
+      var ySpeed = 3;
+      var radius = 10;
+
+      var x = 50;
+      var xSpeed = 3;
 
       // A function to repeat every time the animation loops.
       function repeatme() {
         // Draw the ball (stroked, not filled).
         ctx.clearRect(0,0, canvas.width, canvas.height);
         ctx.beginPath();
-        ctx.arc(150, y, 30, 0, 2 * Math.PI);
+        ctx.arc(x, y, radius, 0, 2 * Math.PI);
         ctx.stroke();
         
-        // Update the y location.
+        // Update the y and x location.
         y += ySpeed;
+        x += xSpeed;
 
-        if(y + radius >= canvas.height){
-            y = canvas.height - radius;
-            ySpeed = ySpeed * -1;
-        }
-        
-        if(y >= 300 + radius){
-            ySpeed = ySpeed * -1;
-        }
+  if (x + radius >= canvas.width || x - radius <= 0) {
+    xSpeed *= -1;
+  }
+
+  if (y + radius >= canvas.height || y - radius <= 0) {
+    ySpeed *= -1;
+  }
+
 
         window.requestAnimationFrame(repeatme);
       }
