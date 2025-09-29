@@ -18,30 +18,28 @@
 
   <body>
 
-    <canvas id="canvas-for-ball" width="250" height="300"></canvas>
+    <canvas id="canvas-for-ball" width="600" height="400"></canvas>
 
     <script type="text/javascript">
       //Class Ball
       class PacmanBall{
-      constructor(x,y,position,xSpeed,ySpeed,radius) {
+      constructor(x,y,xSpeed,ySpeed,radius) {
       this.x = x; this.y = y;
-      this.position = position;
       this.xSpeed = xSpeed;
       this.ySpeed = ySpeed;
       this.radius = radius;
       this.rotation = 0; //facing direction
       }
-   }
+   
 
       //Move method
       move(canvas){ 
-        this.x += this.ySpeed;
+        this.x += this.xSpeed;
         this.y += this.ySpeed;  
-        {
+        
         
         //Bounce off walls
-        if(this.x + this.radius >= canvas.width || this.x - this.radius <= 0)
-      {
+        if(this.x + this.radius >= canvas.width || this.x - this.radius <= 0) {
         this.xSpeed *= -1;
         this.rotation += Math.PI;
       }
@@ -50,11 +48,26 @@
       {
         this.ySpeed *= -1;
         this.rotation += Math.PI;
+      }  
+  }
+
+      //Draw method - draws the Pacman shape
+      draw(ctx){
+        const mouth = Math.PI / 6;
+
+        ctx.beginPath();
+        ctx.moveTo(this.x, this.y);
+
+        ctx.arc(this.x, this.y, this.radius, mouth + this.rotation, 2 * Math.PI - mouth + this.rotation);
+        ctx.closePath();
+        ctx.fillStyle = "yellow";
+        ctx.fill();
+        ctx.stroke();
       }
-
+      rotate(step = 0.05){
+        this.rotation += step;
+      }
       
-
-    }
       }
 
 
@@ -69,15 +82,12 @@
       // A function to repeat every time the animation loops.
       function repeatme() {
         // Draw the ball (stroked, not filled).
-        ctx.clearRect(0,0, canvas.width, canvas.height);
-       pacman.draw(ctx);
-        
-     
-        pacman.move(canvas);
-        pacman.rotate();
-
-
-        window.requestAnimationFrame(repeatme);
+      ctx.clearRect(0,0, canvas.width, canvas.height);
+      pacman.draw(ctx);
+      pacman.move(canvas);
+      pacman.rotate();
+      
+      window.requestAnimationFrame(repeatme);
       }
       
       // Get the animation going.
