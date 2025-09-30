@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+  <meta charset="UTF-8">
+  <title>Canvas</title>
+
+  <style type="text/css">
+    canvas {
+      background-color: lightcoral;
+      border: 3px solid black;
+    }
+  </style>
+  <h1>BOGDAN NWACHUKWU</h1>
+</head>
+
+<body>
+
+  <canvas id="canvas-for-ball" width="300" height="250"></canvas>
+
+  <script type="text/javascript">
+    //Class PacmanBall
+    class PacmanBall {
+      constructor(x, y, xSpeed, ySpeed, radius) {
+        this.x = x; this.y = y;
+        this.xSpeed = xSpeed;
+        this.ySpeed = ySpeed;
+        this.radius = radius;
+        this.rotation = 0; //facing direction
+      }
+
+      //Move method
+      move(canvas) {
+        this.x += this.xSpeed;
+        this.y += this.ySpeed;
+
+
+        //Bounce off walls
+        if (this.x + this.radius >= canvas.width || this.x - this.radius <= 0) {
+          this.xSpeed *= -1;
+          this.rotation += Math.PI;
+        }
+
+        if (this.y + this.radius >= canvas.height || this.y - this.radius <= 0) {
+          this.ySpeed *= -1;
+          this.rotation += Math.PI;
+        }
+      }
+
+      //Draw method - draws the Pacman shape
+      draw(ctx) {
+        const mouth = Math.PI / 6;
+
+        ctx.beginPath();
+        ctx.moveTo(this.x, this.y);
+
+        ctx.arc(this.x, this.y, this.radius, mouth + this.rotation, 2 * Math.PI - mouth + this.rotation);
+        ctx.closePath();
+        ctx.fillStyle = "yellow";
+        ctx.fill();
+        ctx.stroke();
+      }
+      rotate(step = 0.05) {
+        this.rotation += step;
+      }
+
+    }
+
+
+    class Paddle{
+    constructor(x,y,width,height)
+    {
+    this.x = x; 
+    this.y = y;
+    this.width = width; 
+    this.height = height;
+    }
+      }
+
+
+
+
+    // Gets a handle to the element with id canvasOne.
+    var canvas = document.getElementById("canvas-for-ball");
+    // Get a 2D context for the canAvas.
+    var ctx = canvas.getContext("2d");
+
+    var pacman = new PacmanBall(100, 100, 4, 6, 30);
+
+    // A function to repeat every time the animation loops.
+    function repeatme() {
+      // Draw the ball (stroked, not filled).
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      pacman.draw(ctx);
+      pacman.move(canvas);
+      pacman.rotate();
+
+      window.requestAnimationFrame(repeatme);
+    }
+
+    // Get the animation going.
+    repeatme();
+  </script>
+
+</body>
+
+</html>

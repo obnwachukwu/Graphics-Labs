@@ -44,7 +44,7 @@
         y: event.clientY - canvasPosition.y
       }
 
-      // Fr
+      // Draw a circle at the mouse position
       ctx.beginPath();
       ctx.arc(mouse.x, mouse.y, 6, 0, 2 * Math.PI);
       ctx.fill();
@@ -52,6 +52,8 @@
       noClicks += 1;
       console.log(noClicks);
     });
+
+    
   </script>
 
 </body>
