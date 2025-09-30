@@ -38,8 +38,15 @@
     ctx.fillStyle = "rgb(255, 0, 0)";
 
     canvas.addEventListener("click", function (event) {
+      //Log the event to the console
+      var mouse = {
+        x: event.clientX - canvasPosition.x,
+        y: event.clientY - canvasPosition.y
+      }
+
+      // Fr
       ctx.beginPath();
-      ctx.arc(50, 50, 6, 0, 2 * Math.PI);
+      ctx.arc(mouse.x, mouse.y, 6, 0, 2 * Math.PI);
       ctx.fill();
 
       noClicks += 1;
