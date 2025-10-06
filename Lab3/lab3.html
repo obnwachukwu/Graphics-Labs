@@ -22,12 +22,13 @@
   <script type="text/javascript">
     //Class PacmanBall
     class PacmanBall { 
-      constructor(x, y, xSpeed, ySpeed, radius) {
+      constructor(x, y, xSpeed, ySpeed, radius,angularVelocity) {
         this.x = x; this.y = y;
         this.xSpeed = xSpeed;
         this.ySpeed = ySpeed;
         this.radius = radius;
         this.rotation = 0; //facing direction
+        this.angularVelocity = 0;
       }
       
 
@@ -69,6 +70,7 @@
       }
       rotate(step = 0.05) {
         this.rotation += step;
+        this.rotation += this.angularVelocity;
       }
 
     }
@@ -136,8 +138,16 @@
           console.log('S key pressed')
           leftPaddle.move(10,canvas);
           break;
+
+          case 81:
+          pacman.angularVelocity -= 0.01;
+          break;
+
+          case 69:
+          pacman.angularVelocity += 0.01;
+          break;
 			}
-		});
+		})
 
     //mouse control
     canvas.addEventListener("mousemove", function (event) {
