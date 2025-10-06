@@ -21,7 +21,7 @@
 
   <script type="text/javascript">
     //Class PacmanBall
-    class PacmanBall {
+    class PacmanBall { 
       constructor(x, y, xSpeed, ySpeed, radius) {
         this.x = x; this.y = y;
         this.xSpeed = xSpeed;
@@ -29,6 +29,7 @@
         this.radius = radius;
         this.rotation = 0; //facing direction
       }
+      
 
       //Move method
       move(canvas) {
@@ -46,9 +47,14 @@
           this.ySpeed *= -1;
           this.rotation += Math.PI;
         }
-      }
-
-      //Draw method - draws the Pacman shape
+        
+        //Metod for drawing rectangle at the desired location
+        if(this.x + this.radius >= canvas.width || this.x - this.radius <= 0 || this.y + this.radius >= canvas.height || this.y - this.radius <= 0){
+            ctx.fillRect(this.x, this.y, 10, 50);
+        
+    }
+}
+        //Draw method - draws the Pacman shape
       draw(ctx) {
         const mouth = Math.PI / 6;
 
@@ -69,14 +75,28 @@
 
 
     class Paddle{
-    constructor(x,y,width,height)
-    {
-    this.x = x; 
-    this.y = y;
-    this.width = width; 
-    this.height = height;
-    }
+    constructor(x,y,width,height,color)
+      {
+      this.x = x; 
+      this.y = y;
+      this.width = width; 
+      this.height = height;
+      this.color = color;
       }
+
+      draw(ctx){
+        ctx.fillStyle = this.color;
+        ctx.fillRect(this.x, this.y, this.width, this.height);
+
+      }
+
+      move (dy, canvas){
+        this.y += dy;
+        //keep inside canvas
+        if(this.y < 0) this.y = 0;
+        if(this.y + this.height > canvas.height) this.y = canvas.height - this.height;
+      }
+    }
 
 
 
@@ -87,6 +107,7 @@
     var ctx = canvas.getContext("2d");
 
     var pacman = new PacmanBall(100, 100, 4, 6, 30);
+    var paddle = new Paddle(10,100,15,60,"blue");
 
     // A function to repeat every time the animation loops.
     function repeatme() {
@@ -95,6 +116,7 @@
       pacman.draw(ctx);
       pacman.move(canvas);
       pacman.rotate();
+      paddle.draw(ctx);
 
       window.requestAnimationFrame(repeatme);
     }
