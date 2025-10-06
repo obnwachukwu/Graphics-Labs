@@ -17,7 +17,7 @@
 
 <body>
 
-  <canvas id="canvas-for-ball" width="300" height="250"></canvas>
+  <canvas id="canvas-for-ball" width="700" height="250"></canvas>
 
   <script type="text/javascript">
     //Class PacmanBall
@@ -140,11 +140,11 @@
 		});
 
     //mouse control
-    canvas.addEventListener("click", function (event) {
+    canvas.addEventListener("mousemove", function (event) {
       var rect = canvas.getBoundingClientRect();
       var mouseY = event.clientY - rect.top;
 
-      leftPaddle.y = mouseY - leftPaddle.h / 2; 
+      leftPaddle.y = mouseY - leftPaddle.height / 2;
     });
 
     // A function to repeat every time the animation loops.
