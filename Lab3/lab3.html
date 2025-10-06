@@ -5,7 +5,7 @@
 <head>
   <meta charset="UTF-8">
   <title>Canvas</title>
-
+<script src="https://code.jquery.com/jquery-3.1.0.min.js"></script>
   <style type="text/css">
     canvas {
       background-color: lightcoral;
@@ -48,11 +48,11 @@
           this.rotation += Math.PI;
         }
         
-        //Metod for drawing rectangle at the desired location
-        if(this.x + this.radius >= canvas.width || this.x - this.radius <= 0 || this.y + this.radius >= canvas.height || this.y - this.radius <= 0){
-            ctx.fillRect(this.x, this.y, 10, 50);
+    //     //Metod for drawing rectangle at the desired location
+    //     if(this.x + this.radius >= canvas.width || this.x - this.radius <= 0 || this.y + this.radius >= canvas.height || this.y - this.radius <= 0){
+    //         ctx.fillRect(this.x, this.y, 10, 50);
         
-    }
+    // }
 }
         //Draw method - draws the Pacman shape
       draw(ctx) {
@@ -106,8 +106,38 @@
     // Get a 2D context for the canAvas.
     var ctx = canvas.getContext("2d");
 
-    var pacman = new PacmanBall(100, 100, 4, 6, 30);
-    var paddle = new Paddle(10,100,15,60,"blue");
+    //position of the 2 Paddles
+    var pacman = new PacmanBall(150, 125, 4, 6, 30);
+    var leftPaddle = new Paddle(5,95,15,60,"blue");
+    var rightPaddle = new Paddle(canvas.width - 20, 100,15,60,"green");
+
+    //keypresses with jQuery
+		$(document.body).on('keydown', function(e) {
+			console.log(e.which);
+			switch (e.which) {
+        
+        case 38:
+          console.log('up arrow key pressed')
+          rightPaddle.move(-10,canvas);
+          break;
+
+          case 40:
+          console.log('down arrow key pressed')
+          rightPaddle.move(10,canvas);
+          break;
+
+
+          case 87:
+          console.log('W key pressed')
+          leftPaddle.move(-10,canvas);
+          break;
+
+          case 83:
+          console.log('S key pressed')
+          leftPaddle.move(10,canvas);
+          break;
+			}
+		});
 
     // A function to repeat every time the animation loops.
     function repeatme() {
@@ -116,7 +146,8 @@
       pacman.draw(ctx);
       pacman.move(canvas);
       pacman.rotate();
-      paddle.draw(ctx);
+      rightPaddle.draw(ctx);
+      leftPaddle.draw(ctx);
 
       window.requestAnimationFrame(repeatme);
     }
