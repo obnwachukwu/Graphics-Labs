@@ -160,6 +160,14 @@
             pacman.rotation += Math.PI;
             console.log("Left Collison" + distance1);
         }
+
+        //Right Paddle
+        if(distance2 < pacman.radius + rightPaddle.width / 2){
+          pacman.xSpeed = -Math.abs(pacman.xSpeed);
+          pacman.rotation += Math.PI;
+          console.log("Right Collison" + distance2);
+        }
+
 }
     
     
