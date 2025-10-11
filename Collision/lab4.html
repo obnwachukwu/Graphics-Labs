@@ -22,6 +22,7 @@
   <canvas id="canvas-for-ball" width="400" height="300"></canvas>
   <div id="score1" style="margin-top:10px; font-weight:bold; font-size:18px; color:black;">Left Paddle Score: 0</div>
   <div id="score2" style="margin-top:5px; font-weight:bold; font-size:18px; color:black;">Right Paddle Score: 0</div>
+  <div id="collision-message">COLLISION DETECTED!</div>
   
   <script type="text/javascript">
     //Class PacmanBall
@@ -117,6 +118,10 @@
     //Score variables
     var leftScore = 0;
     var rightScore = 0;
+
+    // Collision variables for time and meassage
+    let collisionMessageVisible = false;
+    let collisionMessageTimer = 0;
 
     //keypresses with jQuery
 		$(document.body).on('keydown', function(e) {
