@@ -17,24 +17,19 @@
 
 <body>
 
-  <canvas id="canvas-for-ball" width="400" height="300"></canvas>
-  <div id="score1" style="margin-top:10px; font-weight:bold; font-size:18px; color:black;"></div>
-  <div id="score2" style="margin-top:10px; font-weight:bold; font-size:18px; color:black;"></div>
+  <canvas id="canvas-for-ball" width="300" height="250"></canvas>
 
   <script type="text/javascript">
     //Class PacmanBall
     class PacmanBall { 
-      constructor(x, y, xSpeed, ySpeed, radius) {
+      constructor(x, y, xSpeed, ySpeed, radius,angularVelocity) {
         this.x = x; this.y = y;
         this.xSpeed = xSpeed;
         this.ySpeed = ySpeed;
         this.radius = radius;
         this.rotation = 0; //facing direction
-        this.collidingLeft = false;
-        this.collidingRight = false;
-
+        this.angularVelocity = 0;
       }
-      
       
 
       //Move method
@@ -52,12 +47,11 @@
         if (this.y + this.radius >= canvas.height || this.y - this.radius <= 0) {
           this.ySpeed *= -1;
           this.rotation += Math.PI;
-        }
-        
-}
+        }  
+      }
         //Draw method - draws the Pacman shape
       draw(ctx) {
-        const mouth = Math.PI / 6;
+          const mouth = Math.PI / 6;
 
         ctx.beginPath();
         ctx.moveTo(this.x, this.y);
@@ -70,27 +64,27 @@
       }
       rotate(step = 0.05) {
         this.rotation += step;
+        this.rotation += this.angularVelocity;
       }
 
     }
 
-
+    //Paddle construcor
     class Paddle{
     constructor(x,y,width,height,color)
       {
       this.x = x; 
       this.y = y;
-      this.width = 50; 
+      this.width = width; 
       this.height = height;
       this.color = color;
       }
 
+      //drawing the paddle
       draw(ctx){
-        //Draw a cirlce istead of a rectangle
         ctx.fillStyle = this.color;
-        ctx.beginPath();
-        ctx.arc(this.x + this.width/2, this.y + this.height/2, this.width/2, 0, 2 * Math.PI);
-        ctx.fill();
+        ctx.fillRect(this.x, this.y, this.width, this.height);
+
       }
 
       move (dy, canvas){
@@ -101,6 +95,7 @@
       }
     }
 
+
     // Gets a handle to the element with id canvasOne.
     var canvas = document.getElementById("canvas-for-ball");
     // Get a 2D context for the canAvas.
@@ -108,20 +103,15 @@
 
     //position of the 2 Paddles
     var pacman = new PacmanBall(150, 125, 4, 6, 30);
-    var leftPaddle = new Paddle(100,105,15,60,"blue");
-    var rightPaddle = new Paddle(canvas.width - 50, 100,15,60,"green");
-
-
-    //Score variables.
-    var leftScore = 0;
-    var rightScore = 0;
+    var leftPaddle = new Paddle(5,95,15,60,"blue");
+    var rightPaddle = new Paddle(canvas.width - 20, 100,15,60,"green");
 
     //keypresses with jQuery
 		$(document.body).on('keydown', function(e) {
 			console.log(e.which);
 			switch (e.which) {
         
-        case 38:
+        case 38: 
           console.log('up arrow key pressed')
           rightPaddle.move(-10,canvas);
           break;
@@ -140,8 +130,16 @@
           console.log('S key pressed')
           leftPaddle.move(10,canvas);
           break;
+
+          case 81: // Q increase speed of rotation
+          pacman.angularVelocity -= 0.01;
+          break;
+
+          case 69: // E decrease speed of rotation
+          pacman.angularVelocity += 0.01;
+          break;
 			}
-		});
+		})
 
     //mouse control
     canvas.addEventListener("mousemove", function (event) {
@@ -150,62 +148,6 @@
 
       leftPaddle.y = mouseY - leftPaddle.height / 2;
     });
-
-    
-
-
-    //Method to detect collison betwen the match mall and the Paddle ball.
-    function collisionDetect(){
-        var distance1 = Math.sqrt(Math.pow(pacman.x - leftPaddle.x,2)+ Math.pow(pacman.y-leftPaddle.y,2));
-        var distance2 = Math.sqrt(Math.pow(pacman.x - rightPaddle.x,2)+ Math.pow(pacman.y-rightPaddle.y,2));
-        console.log("Collision detected" + distance1 + distance2);
-        
-
-        //Left Paddle collision
-        if(distance1 < pacman.radius + leftPaddle.width / 2){
-          if(!pacman.collidingLeft) {
-          pacman.xSpeed = Math.abs(pacman.xSpeed);
-          pacman.rotation += Math.PI;
-          console.log("Collision with the paddle on left side");
-          pacman.collidingLeft = true;
-          
-          
-          rightScore++;
-          document.getElementById("score1").innerText = "Left Paddle Score:" + rightScore;
-        }
-      } else {
-        pacman.collidingLeft = false;
-      }
-
-        //Right Paddle colision
-        if(distance2 < pacman.radius + rightPaddle.width / 2){
-          if(!pacman.collidingRight) {
-          pacman.xSpeed = -Math.abs(pacman.xSpeed);
-          pacman.rotation += -Math.PI;
-          console.log("Collision with the paddle on right happened");
-          pacman.collidingRight = true;
-
-        rightScore++;
-        document.getElementById("score2").innerText = "Right Paddle Score:" + rightScore;
-        }
-      } else {
-        pacman.collidingRight = false;
-      }
-
-     
-    
-       
-    }
-
-    
-
-
-    //   //closest point on the paddle to the center of the pacman
-    //   let closestX = Math.max(paddle.x, Math.min(pacman.x, paddle.x + paddle.width));
-    //   let closestY = Math.max(paddle.y, Math.min(pacman.y, paddle.y + paddle.height));
-
-      //Calculate the distance between the pacman and the closest point
-    //   let distanceX = pacman.x - closest
 
     // A function to repeat every time the animation loops.
     function repeatme() {
@@ -216,7 +158,6 @@
       pacman.rotate();
       rightPaddle.draw(ctx);
       leftPaddle.draw(ctx);
-      collisionDetect();
 
       window.requestAnimationFrame(repeatme);
     }
