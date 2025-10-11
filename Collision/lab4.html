@@ -153,21 +153,7 @@
     function collisionDetect( ){
         var distance1 = Math.sqrt(Math.pow(pacman.x - leftPaddle.x,2) + Math.pow(pacman.y-leftPaddle.y,2));
         var distance2 = Math.sqrt(Math.pow(pacman.x - rightPaddle.x,2) + Math.pow(pacman.y-rightPaddle.y,2));
-    
-        //Left Paddle
-        if(distance1 < pacman.radius + leftPaddle.width / 2){
-            pacman.xSpeed = Math.abs(pacman.xSpeed);
-            pacman.rotation += Math.PI;
-            console.log("Left Collison" + distance1);
-        }
-
-
-          //Right Paddle
-        if(distance2 < pacman.radius + rightPaddle.width / 2){
-        pacman.xSpeed = -Math.abs(pacman.xSpeed);
-        pacman.rotation += Math.PI;
-        console.log("Right Collision! Distance: " + distance2);
-        }
+  
 }
     
     
