@@ -174,14 +174,22 @@
         pacman.collidingLeft = false;
       }
 
-        //Right Paddle
-        if(distance2 < pacman.radius + rightPaddle.width / 2){
+      // Right Paddle
+      if (distance2 < pacman.radius + rightPaddle.width / 2) {
+        if (!pacman.collidingRight) {
           pacman.xSpeed = -Math.abs(pacman.xSpeed);
           pacman.rotation += Math.PI;
-          console.log("Right Collison" + distance2);
-        }
+          pacman.collidingRight = true;
 
-}
+          leftScore++;
+          document.getElementById("score2").innerText = "Right Paddle Score: " + leftScore;
+        }
+      } else {
+        pacman.collidingRight = false;
+      }
+    }
+
+
     
     
     //   //closest point on the paddle to the center of the pacman
