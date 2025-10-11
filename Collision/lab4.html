@@ -47,15 +47,26 @@
 
 
         //Bounce off walls
-        if (this.x + this.radius >= canvas.width || this.x - this.radius <= 0) {
+        if (this.x + this.radius >= canvas.width) {
+          rightScore = Math.max(0, rightScore - 1);
+          document.getElementById("score2").innerText = "Right Paddle Score: " + rightScore;
           this.xSpeed *= -1;
           this.rotation += Math.PI;
         }
 
-        if (this.y + this.radius >= canvas.height || this.y - this.radius <= 0) {
-          this.ySpeed *= -1;
+        if (this.x - this.radius <= 0) {
+          leftScore = Math.max(0, leftScore - 1);
+          document.getElementById("score1").innerText = "Left Paddle Score: " + leftScore;
+          this.xSpeed *= -1;
           this.rotation += Math.PI;
-        }
+      }
+
+        
+  if (this.y + this.radius >= canvas.height || this.y - this.radius <= 0) {
+    this.ySpeed *= -1;
+    this.rotation += Math.PI;
+  }
+
         
 }
         //Draw method - draws the Pacman shape
@@ -172,9 +183,10 @@
             console.log("Left Collison" + distance1);
             pacman.collidingLeft = true;
 
-            rightScore++;
-            document.getElementById("score1").innerText = "Left Paddle Score: " + rightScore;
-        }
+            leftScore++;
+            document.getElementById("score1").innerText = "Left Paddle Score: " + leftScore;
+            this.xSpeed *= -1;
+          }
       } else {
         pacman.collidingLeft = false;
       }
@@ -186,8 +198,9 @@
           pacman.rotation += Math.PI;
           pacman.collidingRight = true;
 
-          leftScore++;
-          document.getElementById("score2").innerText = "Right Paddle Score: " + leftScore;
+          rightScore++;
+          document.getElementById("score2").innerText = "Right Paddle Score: " + rightScore;
+          this.xSpeed *= -1;
         }
       } else {
         pacman.collidingRight = false;
