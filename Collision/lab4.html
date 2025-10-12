@@ -19,7 +19,7 @@
 
 <body>
 
-  <canvas id="canvas-for-ball" width="600" height="300"></canvas>
+  <canvas id="canvas-for-ball" width="300" height="300"></canvas>
   <div id="score1" style="margin-top:10px; font-weight:bold; font-size:18px; color:black;">Left Paddle Score: 0</div>
   <div id="score2" style="margin-top:5px; font-weight:bold; font-size:18px; color:black;">Right Paddle Score: 0</div>
   <div id="collision-message">COLLISION DETECTED!</div>
@@ -77,9 +77,14 @@
         ctx.beginPath();
         ctx.moveTo(this.x, this.y);
 
+        const grad=ctx.createRadialGradient(150,75,15,150,75,150);
+        grad.addColorStop(0,"green");
+        grad.addColorStop(1,"lightgreen"); 
+
+
         ctx.arc(this.x, this.y, this.radius, mouth + this.rotation, 2 * Math.PI - mouth + this.rotation);
         ctx.closePath();
-        ctx.fillStyle = this.color;
+        ctx.fillStyle = grad;
         ctx.fill();
         ctx.stroke();
       }
@@ -91,7 +96,7 @@
 
 
     class Paddle{
-    constructor(x,y,width,height,color)
+    constructor(x,y,width,height,color,grad)
       {
       this.x = x; 
       this.y = y;
@@ -102,11 +107,16 @@
 
       draw(ctx){
         //Draw a cirlce istead of a rectangle
-        ctx.fillStyle = this.color;
+        const grad=ctx.createRadialGradient(150,75,15,150,75,150);
+        grad.addColorStop(0,"lightblue");
+        grad.addColorStop(1,"darkblue"); 
+        
+        
+        ctx.fillStyle = grad;
         ctx.beginPath();
         ctx.arc(this.x + this.width/2, this.y + this.height/2, this.width/2, 0, 2 * Math.PI);
         ctx.fill();
-      }
+        }
 
       move (dy, canvas){
         this.y += dy;
@@ -122,14 +132,16 @@
     var ctx = canvas.getContext("2d");
 
     //position of the 2 Paddles
-    var pacman = new PacmanBall(150, 125, 4, 6, 30, color = "red");
-    var leftPaddle = new Paddle(100,105,15,60,"blue");
-    var rightPaddle = new Paddle(canvas.width - 50, 100,15,60,"green");
+    var pacman = new PacmanBall(30, 125, 4, 6, 30,color = "red");
+    var leftPaddle = new Paddle(20,105,15,60,"blue");
+    var rightPaddle = new Paddle(canvas.width - 65, 100,15,60,"green");
 
 
     //Score variables
     var leftScore = 0;
     var rightScore = 0;
+
+    
 
     // Collision variables for time and meassage
     let collisionMessageVisible = false;
@@ -197,6 +209,7 @@
         if (!pacman.collidingRight) {
           pacman.xSpeed = -Math.abs(pacman.xSpeed);
           pacman.rotation += Math.PI;
+          console.log("Right Collison" + distance2);
           pacman.collidingRight = true;
 
           rightScore++;
