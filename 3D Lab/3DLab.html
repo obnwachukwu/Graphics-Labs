@@ -28,22 +28,54 @@
         renderer.render(scene, camera);
 
 
-        // Create a sphere with MeshBasicMaterial
-        const geometry = new THREE.SphereGeometry(1, 32, 32);
-        const material = new THREE.MeshBasicMaterial({ color: 0x0077ff, wireframe: true });
-        const sphere = new THREE.Mesh(geometry, material);
-        scene.add(sphere);
-
         //Add a spotlight
         const spotLight = new THREE.SpotLight(0xffffff);
         spotLight.position.set(3, 5, 3);
         scene.add(spotLight);
 
-        //Change material to MeshLambertMaterial
-        const litMaterial = new THREE.MeshLambertMaterial({ color: 0x0077ff });
-        sphere.material = litMaterial;
+
+        const planeGeometry = new THREE.PlaneGeometry(10, 10);
+        const planeMaterial = new THREE.MeshLambertMaterial({ color: 0x555555 });
+        const plane = new THREE.Mesh(planeGeometry, planeMaterial);
+        plane.rotation.x = -Math.PI / 2;
+        plane.position.y = -2;
+        plane.receiveShadow = true;
+        scene.add(plane);
 
 
+        class BouncingSphere {
+    constructor(color = 0x0077ff) {
+      const geometry = new THREE.SphereGeometry(1, 32, 32);
+      const material = new THREE.MeshLambertMaterial({ color });
+      this.mesh = new THREE.Mesh(geometry, material);
+      this.mesh.castShadow = true;
+
+      // movement physics
+      this.speedX = 0.02;
+      this.velocityY = 0;
+      this.gravity = -0.002;
+      this.floorY = -1;
+    }
+
+        update() {
+        this.mesh.rotation.x += 0.01;
+        this.mesh.rotation.y += 0.01;
+        
+        this.mesh.position.x += this.speedX;
+        if (this.mesh.position.x > 3 || this.mesh.position.x < -3) this.speedX = -this.speedX;
+
+        this.velocityY += this.gravity;
+        this.mesh.position.y += this.velocityY;
+
+        if (this.mesh.position.y - 1 < this.floorY) {
+            this.mesh.position.y = this.floorY + 1;
+            this.velocityY *= -0.8;
+        }
+        }
+    }
+
+            const sphereObj = new BouncingSphere();
+            scene.add(sphereObj.mesh);
         // Animation loop
         function repeatMe() {
             sphere.rotation.x += 0.01;
