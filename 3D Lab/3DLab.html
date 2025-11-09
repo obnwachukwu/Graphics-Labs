@@ -57,37 +57,39 @@
       this.floorY = -1;
     }
 
-        update() {
-        this.mesh.rotation.x += 0.01;
-        this.mesh.rotation.y += 0.01;
-        
-        this.mesh.position.x += this.speedX;
-        if (this.mesh.position.x > 3 || this.mesh.position.x < -3) this.speedX = -this.speedX;
+    update() {
+      this.mesh.rotation.x += 0.01;
+      this.mesh.rotation.y += 0.01;
+      this.mesh.position.x += this.speedX;
+      if (this.mesh.position.x > 3 || this.mesh.position.x < -3) this.speedX = -this.speedX;
 
-        this.velocityY += this.gravity;
-        this.mesh.position.y += this.velocityY;
+      this.velocityY += this.gravity;
+      this.mesh.position.y += this.velocityY;
 
-        if (this.mesh.position.y - 1 < this.floorY) {
-            this.mesh.position.y = this.floorY + 1;
-            this.velocityY *= -0.8;
-        }
-        }
+      if (this.mesh.position.y - 1 < this.floorY) {
+        this.mesh.position.y = this.floorY + 1;
+        this.velocityY *= -0.8;
+      }
     }
+  }
 
-            const sphereObj = new BouncingSphere();
-            scene.add(sphereObj.mesh);
-        // Animation loop
-        function repeatMe() {
-            sphere.rotation.x += 0.01;
-            sphere.rotation.y += 0.01;
+  const sphereObj = new BouncingSphere();
+  scene.add(sphereObj.mesh);
 
-            renderer.render(scene, camera);
-            requestAnimationFrame(repeatMe);
-        }
+       function animate() {
+      sphereObj.update();
+      renderer.render(scene, camera);
+      requestAnimationFrame(animate);
+    }
+    animate();
 
-        repeatMe();
-        
-    </script>
+    // Handle window resize
+    window.addEventListener('resize', () => {
+      camera.aspect = window.innerWidth / window.innerHeight;
+      camera.updateProjectionMatrix();
+      renderer.setSize(window.innerWidth, window.innerHeight);
+    });
+  </script>
 </body>
 
 </html>
