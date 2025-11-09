@@ -26,6 +26,24 @@
         document.body.appendChild(renderer.domElement);
 
         renderer.render(scene, camera);
+
+
+        // Create a sphere with MeshBasicMaterial
+        const geometry = new THREE.SphereGeometry(1, 32, 32);
+        const material = new THREE.MeshBasicMaterial({ color: 0x0077ff });
+        const sphere = new THREE.Mesh(geometry, material);
+        scene.add(sphere);
+
+        // Animation loop
+        function repeatMe() {
+            sphere.rotation.x += 0.01;
+            sphere.rotation.y += 0.01;
+
+            renderer.render(scene, camera);
+            requestAnimationFrame(repeatMe);
+        }
+
+        repeatMe();
         
     </script>
 </body>
