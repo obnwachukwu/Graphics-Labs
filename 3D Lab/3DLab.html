@@ -21,9 +21,11 @@
         camera.position.z = 5;
 
         // Implement renderer - Create a WebGL renderer for rendering the scene.
-        var renderer = new THREE.WebGLRenderer();
+        const renderer = new THREE.WebGLRenderer({ antialias: true });
         renderer.setSize(window.innerWidth, window.innerHeight);
         document.body.appendChild(renderer.domElement);
+
+        renderer.render(scene, camera);
         
     </script>
 </body>
