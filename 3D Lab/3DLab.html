@@ -9,10 +9,10 @@
     <style type="text/css">
     </style>
 </head>
-
+   <h1>BOGDAN NWACHUKWU</h1>
 <body>
     <script type="text/javascript">
-          <h1>BOGDAN NWACHUKWU</h1>
+         
         
         // Implement scene - Create a Three.js scene to hold objects.
         var scene = new THREE.Scene();
@@ -30,9 +30,19 @@
 
         // Create a sphere with MeshBasicMaterial
         const geometry = new THREE.SphereGeometry(1, 32, 32);
-        const material = new THREE.MeshBasicMaterial({ color: 0x0077ff });
+        const material = new THREE.MeshBasicMaterial({ color: 0x0077ff, wireframe: true });
         const sphere = new THREE.Mesh(geometry, material);
         scene.add(sphere);
+
+        //Add a spotlight
+        const spotLight = new THREE.SpotLight(0xffffff);
+        spotLight.position.set(3, 5, 3);
+        scene.add(spotLight);
+
+        //Change material to MeshLambertMaterial
+        const litMaterial = new THREE.MeshLambertMaterial({ color: 0x0077ff });
+        sphere.material = litMaterial;
+
 
         // Animation loop
         function repeatMe() {
