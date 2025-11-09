@@ -141,11 +141,8 @@
     var leftScore = 0;
     var rightScore = 0;
 
-    //Array of balls4
-    var balls = [];
-    ballspush(new PacmanBall(100,125,4,6,30, "lightgreen"));
-
-    
+ 
+   
 
     // Collision variables for time and meassage
     let collisionMessageVisible = false;
@@ -175,7 +172,11 @@
           console.log('S key pressed')
           leftPaddle.move(10,canvas);
           break;
-			}
+
+          case 78:
+          addNewBall();
+          break;
+      }
 		});
 
     //mouse control
