@@ -13,6 +13,7 @@
 <body>
     <script type="text/javascript">
          
+         
         
         // Implement scene - Create a Three.js scene to hold objects.
         var scene = new THREE.Scene();
@@ -27,11 +28,21 @@
 
         renderer.render(scene, camera);
 
+        renderer.shadowMap.enabled = true; // enable shadows
+
+
 
         //Add a spotlight
         const spotLight = new THREE.SpotLight(0xffffff);
         spotLight.position.set(3, 5, 3);
         scene.add(spotLight);
+
+        spotLight.castShadow = true; // allow spotlight to cast shadows
+
+        const spotHelper = new THREE.SpotLightHelper(spotLight);
+        scene.add(spotHelper);
+
+
 
 
         const planeGeometry = new THREE.PlaneGeometry(10, 10);
@@ -42,9 +53,18 @@
         plane.receiveShadow = true;
         scene.add(plane);
 
+        const basicSphereGeometry = new THREE.SphereGeometry(1, 32, 32);
+        const basicSphereMaterial = new THREE.MeshBasicMaterial({
+        color: 0xff0000,
+        wireframe: true 
+        });
+        const basicSphere = new THREE.Mesh(basicSphereGeometry, basicSphereMaterial);
+        basicSphere.position.set(-4, 1, 0); 
+        scene.add(basicSphere);
 
-        class BouncingSphere {
-    constructor(color = 0x0077ff) {
+
+      class BouncingSphere {
+      constructor(color = 0x0077ff) {
       const geometry = new THREE.SphereGeometry(1, 32, 32);
       const material = new THREE.MeshLambertMaterial({ color });
       this.mesh = new THREE.Mesh(geometry, material);
@@ -56,6 +76,8 @@
       this.gravity = -0.002;
       this.floorY = -1;
     }
+
+    
 
     update() {
       this.mesh.rotation.x += 0.01;
@@ -73,13 +95,19 @@
     }
   }
 
-  const sphereObj = new BouncingSphere();
-  scene.add(sphereObj.mesh);
+      const sphereObj = new BouncingSphere();
+      scene.add(sphereObj.mesh);
+
+    const sphereObj2 = new BouncingSphere(0xffaa00); // orange sphere
+    sphereObj2.mesh.position.set(2, 1, 0); // start at a different x
+    scene.add(sphereObj2.mesh);
+
 
        function animate() {
       sphereObj.update();
       renderer.render(scene, camera);
       requestAnimationFrame(animate);
+      spotHelper.update();
     }
     animate();
 
