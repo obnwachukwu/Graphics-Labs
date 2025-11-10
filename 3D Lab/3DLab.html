@@ -103,11 +103,27 @@
     scene.add(sphereObj2.mesh);
 
 
+    function detectCollision(s1, s2) {
+    const dx = s1.mesh.position.x - s2.mesh.position.x;
+    const dy = s1.mesh.position.y - s2.mesh.position.y;
+    const dz = s1.mesh.position.z - s2.mesh.position.z;
+    const distance = Math.sqrt(dx*dx + dy*dy + dz*dz);
+    const radiusSum = 2; // both spheres radius = 1
+    if (distance < radiusSum) {
+        // Simple elastic collision in X direction
+        s1.speedX *= -1;
+        s2.speedX *= -1;
+        console.log("Collision detected");
+    }
+}
+
+
        function animate() {
       sphereObj.update();
       renderer.render(scene, camera);
       requestAnimationFrame(animate);
       spotHelper.update();
+      detectCollision(sphereObj, sphereObj2);
     }
     animate();
 
